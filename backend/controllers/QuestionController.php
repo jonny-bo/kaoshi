@@ -23,7 +23,7 @@ class QuestionController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'delete' => ['POST', 'GET'],
                 ],
             ],
         ];
@@ -63,7 +63,8 @@ class QuestionController extends Controller
      */
     public function actionCreate($type)
     {
-        $model = new Question();
+        $className = 'backend\\models\\'.ucfirst($type).'Question';
+        $model = new $className();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -83,7 +84,7 @@ class QuestionController extends Controller
      */
     public function actionUpdate($id, $type)
     {
-        $model = $this->findModel($id);
+        $model = $this->findModel($id, $type);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -115,9 +116,11 @@ class QuestionController extends Controller
      * @return Question the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected function findModel($id, $type = null)
     {
-        if (($model = Question::findOne($id)) !== null) {
+        $className = 'backend\\models\\'.ucfirst($type).'Question';
+
+        if (($model = $className::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
