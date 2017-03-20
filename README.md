@@ -9,7 +9,7 @@
 
 项目代码说明在 [docs/guide/README.md](docs/guide/README.md).
 
-```
+
 # 本地部署考试系统
 
 
@@ -24,18 +24,18 @@
   * 初始化数据库
 
     创建数据库：
+    
     ```
     CREATE DATABASE `kaoshi` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
     ```
 
     创建数据库表：
+
     ```
     ./yii migrate
     ```
 
     程序会初始化表。
-
-    ```
 
 ## 前端初始化（需安装nodejs环境）
 
@@ -43,5 +43,4 @@
 
     ```
     npm install
-    
     ```
