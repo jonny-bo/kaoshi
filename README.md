@@ -43,20 +43,5 @@
 
     ```
     npm install
-    ```
-
-    ```
-
-## 单元测试
-
-  * 执行所有单元测试
-
-    ```
-    phpunit -c app/ 
-    ```
-
-  * 执行某个单元测试
-
-    ```
-    phpunit -c app TEST_CAST_FILEPATH
+    
     ```
