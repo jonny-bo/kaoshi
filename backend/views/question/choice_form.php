@@ -24,21 +24,21 @@ use dosamigos\ckeditor\CKEditor;
         'preset' => 'basic'
     ]) ?>
 
-    <?= $form->field($model, 'choice[]')->label('选项A')->textInput() ?>
+    <?= $form->field($model, 'choice[0]')->label('选项A')->textInput() ?>
 
-    <?= $form->field($model, 'answeres[]')->checkbox() ?>
+    <?= $form->field($model, 'answeres[1]')->checkbox() ?>
 
-    <?= $form->field($model, 'choice[]')->label('选项B')->textInput() ?>
+    <?= $form->field($model, 'choice[1]')->label('选项B')->textInput() ?>
 
-    <?= $form->field($model, 'answeres[]')->checkbox() ?>
+    <?= $form->field($model, 'answeres[2]')->checkbox() ?>
 
-    <?= $form->field($model, 'choice[]')->label('选项C')->textInput() ?>
+    <?= $form->field($model, 'choice[2]')->label('选项C')->textInput() ?>
 
-    <?= $form->field($model, 'answeres[]')->checkbox() ?>
+    <?= $form->field($model, 'answeres[3]')->checkbox() ?>
 
-    <?= $form->field($model, 'choice[]')->label('选项D')->textInput() ?>
+    <?= $form->field($model, 'choice[3]')->label('选项D')->textInput() ?>
 
-    <?= $form->field($model, 'answeres[]')->checkbox() ?>
+    <?= $form->field($model, 'answeres[4]')->checkbox() ?>
 
     <?= $form->field($model, 'analysis')->widget(CKEditor::className(), [
         'options' => ['rows' => 6],

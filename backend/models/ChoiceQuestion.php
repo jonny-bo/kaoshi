@@ -63,4 +63,12 @@ class ChoiceQuestion extends Question
             return false;
         }
     }
+
+    public function afterFind()
+    {
+        foreach (Json::decode($this->answer) as $answer) {
+            $this->answeres[$answer] = 1;
+        }
+        $this->choice = Json::decode($this->metas);
+    }
 }
