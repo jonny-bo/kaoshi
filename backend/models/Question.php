@@ -4,6 +4,7 @@ namespace backend\models;
 
 use Yii;
 use backend\models\User;
+use common\components\Helper;
 
 /**
  * This is the model class for table "question".
@@ -78,8 +79,35 @@ class Question extends \yii\db\ActiveRecord
         ];
     }
 
+    public static function stemTextFilter($stem, $length)
+    {
+        return Helper::truncate_utf8_string($stem, $length);
+    }
+
+    public function getFilterStem($length = 30)
+    {
+        $className = QuestionTypeFactory::getClass($this->type);
+        return $className::stemTextFilter($this->stem, $length);
+    }
+
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'userId']);
+    }
+
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($insert) {
+                $this->createdTime = $this->updatedTime = time();
+            } else {
+                $this->updatedTime = time();
+            }
+            $this->userId = Yii::$app->user->id;
+
+            return true;
+        } else {
+            return false;
+        }
     }
 }

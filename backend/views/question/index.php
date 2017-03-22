@@ -2,7 +2,6 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use common\components\Helper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\QuestionSearch */
@@ -29,11 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'layout'=> '{items}<div class="text-right tooltip-demo">{pager}</div>',
         'pager'=>[
-            //'options'=>['class'=>'hidden']//关闭分页
-            'firstPageLabel'=>"First",
-            'prevPageLabel' =>'Prev',
-            'nextPageLabel' =>'Next',
-            'lastPageLabel' =>'Last',
+            'firstPageLabel'=>"首页",
+            'prevPageLabel' =>'上一页',
+            'nextPageLabel' =>'下一页',
+            'lastPageLabel' =>'尾页',
         ],
         'columns' => [
             [
@@ -69,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'headerOptions' => ['width' => '38%'],
                 'value' => function ($data) {
-                    return Helper::truncate_utf8_string($data->stem, 30);
+                    return $data->getFilterStem();
                 }
             ],
             [

@@ -8,6 +8,7 @@ use backend\models\QuestionSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\QuestionTypeFactory;
 
 /**
  * QuestionController implements the CRUD actions for Question model.
@@ -63,8 +64,7 @@ class QuestionController extends Controller
      */
     public function actionCreate($type)
     {
-        $className = 'backend\\models\\'.ucfirst($type).'Question';
-        $model = new $className();
+        $model = QuestionTypeFactory::create($type);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id, 'type' => $type]);
@@ -118,7 +118,7 @@ class QuestionController extends Controller
      */
     protected function findModel($id, $type = null)
     {
-        $className = 'backend\\models\\'.ucfirst($type).'Question';
+        $className = QuestionTypeFactory::getClass($type);
 
         if (($model = $className::findOne($id)) !== null) {
             return $model;

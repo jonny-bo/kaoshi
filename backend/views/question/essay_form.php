@@ -24,17 +24,17 @@ use dosamigos\ckeditor\CKEditor;
         'preset' => 'basic'
     ]) ?>
 
+    <?= $form->field($model, 'answer')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'basic'
+    ]) ?>
+
     <?= $form->field($model, 'analysis')->widget(CKEditor::className(), [
         'options' => ['rows' => 6],
         'preset' => 'basic'
     ]) ?>
 
     <?= $form->field($model, 'score')->textInput(['value' => 2]) ?>
-
-    <?= $form->field($model, 'answer')->widget(CKEditor::className(), [
-        'options' => ['rows' => 6],
-        'preset' => 'basic'
-    ]) ?>
 
     <?= $form->field($model, 'parentId')->hiddenInput(['value'=> 0])->label(false) ?>
 

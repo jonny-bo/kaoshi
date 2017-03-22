@@ -6,7 +6,7 @@
 }
 .testpaper-question {
   margin-bottom: 50px;
-  font-size: 14px;
+  font-size: 16px;
   border-top: 1px solid #ccc;
   padding-top: 20px;
 }
@@ -310,4 +310,10 @@
 }
 .question-set-card .panel-heading {
   line-height: 30px;
+}
+.testpaper-question-fill-inputs {
+  margin-left: 50px;
+}
+.testpaper-question-fill-inputs input {
+  margin-bottom: 10px;
 }
