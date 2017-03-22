@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use backend\models\User;
 
 /**
  * This is the model class for table "question".
@@ -75,5 +76,10 @@ class Question extends \yii\db\ActiveRecord
             'createdTime' => '创建时间',
             'copyId' => '拷贝来源',
         ];
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'userId']);
     }
 }

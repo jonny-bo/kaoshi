@@ -15,11 +15,13 @@ class QuestionSearch extends Question
     /**
      * @inheritdoc
      */
+    public $username;
+
     public function rules()
     {
         return [
             [['id', 'categoryId', 'parentId', 'subCount', 'finishedTimes', 'passedTimes', 'userId', 'updatedTime', 'createdTime', 'copyId'], 'integer'],
-            [['type', 'stem', 'answer', 'analysis', 'metas', 'difficulty', 'target'], 'safe'],
+            [['type', 'stem', 'answer', 'analysis', 'metas', 'difficulty', 'target', 'username'], 'safe'],
             [['score'], 'number'],
         ];
     }
@@ -43,7 +45,7 @@ class QuestionSearch extends Question
     public function search($params)
     {
         $query = Question::find();
-
+        $query->joinWith(['user']);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
@@ -79,7 +81,8 @@ class QuestionSearch extends Question
             ->andFilterWhere(['like', 'analysis', $this->analysis])
             ->andFilterWhere(['like', 'metas', $this->metas])
             ->andFilterWhere(['like', 'difficulty', $this->difficulty])
-            ->andFilterWhere(['like', 'target', $this->target]);
+            ->andFilterWhere(['like', 'target', $this->target])
+            ->andFilterWhere(['like', 'user.username', $this->username]);
 
         return $dataProvider;
     }

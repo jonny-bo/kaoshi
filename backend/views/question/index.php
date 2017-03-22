@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use common\components\Helper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\QuestionSearch */
@@ -39,10 +40,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\SerialColumn',
                 'headerOptions' => ['width' => '5%']
             ],
-            //['attribute' => 'id', 'headerOptions' => ['width' => '40']],
             [
                 'attribute' => 'type',
-                'headerOptions' => ['width' => '20%'],
+                'headerOptions' => ['width' => '12%'],
                 'filter' => [
                     'choice'    => '选择题',
                     'fill'      => '填空题',
@@ -64,45 +64,65 @@ $this->params['breadcrumbs'][] = $this->title;
                     }
                 }
             ],
-            ['attribute' => 'stem', 'format' => 'html', 'headerOptions' => ['width' => '240']],
-            ['attribute' => 'score', 'headerOptions' => ['width' => '50'],],
-            ['attribute' => 'answer', 'format' => 'html', 'headerOptions' => ['width' => '200'],],
-            // 'analysis:ntext',
-            // 'metas:ntext',
-            // 'categoryId',
-            // 'difficulty',
-            // 'target',
-            // 'parentId',
-            // 'subCount',
-            // 'finishedTimes:datetime',
-            // 'passedTimes:datetime',
-            // 'userId',
+            [
+                'attribute' => 'stem',
+                'format' => 'html',
+                'headerOptions' => ['width' => '38%'],
+                'value' => function ($data) {
+                    return Helper::truncate_utf8_string($data->stem, 30);
+                }
+            ],
+            [
+                'attribute' => 'difficulty',
+                'filter' => [
+                    'simple'    => '简单',
+                    'normal'      => '普通',
+                    'difficulty'     => '困难',
+                ],
+                'headerOptions' => ['width' => '10%'],
+                'value' => function ($data) {
+                    if ($data->difficulty == 'simple') {
+                        return '简单';
+                    } else if ($data->difficulty == 'normal') {
+                        return '普通';
+                    } else if ($data->difficulty == 'difficulty') {
+                        return '困难';
+                    } else {
+                        return '普通';
+                    }
+                }
+            ],
+            [
+                'label'=>'更新人',
+                'attribute' => 'username',
+                'headerOptions' => ['width' => '10%'],
+                'value' => 'user.username' //关联表
+            ],
             [
                 'label'=>'更新时间',
                 'attribute' => 'updatedTime:datetime',
-                'headerOptions' => ['width' => '100'],
+                'headerOptions' => ['width' => '10%'],
                 'filter' => false, //不显示搜索框
                 'value' => function ($data) {
                     return date('Y-m-d H:i:s', $data->updatedTime);
                 }
             ],
-            // 'createdTime:datetime',
-            // 'copyId',
-
-            // ['class' => 'yii\grid\ActionColumn'],
             [
               'class' => 'yii\grid\ActionColumn',
               'header' => '操作',
               'template' => '{view} {update} {delete}',
-              'headerOptions' => ['width' => '210'],
+              'headerOptions' => ['width' => '15%'],
               'buttons' => [
                 'delete' => function ($url, $model, $key) {
                     return Html::a(
                         '<i class="glyphicon glyphicon-trash"></i> 删除',
                         ['delete', 'id' => $key],
                         [
-                        'class' => 'btn btn-danger btn-sm',
-                        'data' => ['confirm' => '你确定要删除题目吗？',]
+                            'class' => 'btn btn-danger btn-sm',
+                            'data' => [
+                                'confirm' => '你确定要删除题目吗？',
+                                'method' => 'post',
+                            ]
                         ]
                     );
                 },
@@ -118,7 +138,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'view' => function ($url, $model, $key) {
                     return Html::a(
                         '<i class="glyphicon glyphicon-eye-open"></i> 预览',
-                        ['view', 'id' => $key],
+                        ['view', 'id' => $key, 'type' => $model->type],
                         [
                         'class' => 'btn btn-info btn-sm'
                         ]
