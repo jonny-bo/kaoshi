@@ -31,15 +31,10 @@ use dosamigos\ckeditor\CKEditor;
 
     <?= $form->field($model, 'score')->textInput(['value' => 2]) ?>
 
-    <?= $form->field($model, 'answer')->widget(CKEditor::className(), [
-        'options' => ['rows' => 6],
-        'preset' => 'basic'
-    ]) ?>
-
     <?= $form->field($model, 'parentId')->hiddenInput(['value'=> 0])->label(false) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? '添加' : '保存', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '保存并添加子题' : '保存', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

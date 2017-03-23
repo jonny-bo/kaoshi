@@ -34,15 +34,27 @@ class QuestionController extends Controller
      * Lists all Question models.
      * @return mixed
      */
-    public function actionIndex()
+    public function actionIndex($id = 0)
     {
-        $searchModel = new QuestionSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        if ($id != 0) {
+            $model = $this->findModel($id, 'material');
+            $searchModel = new QuestionSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
+            return $this->render('material_index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'model' => $model
+            ]);
+        } else {
+            $searchModel = new QuestionSearch();
+            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+            return $this->render('index', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
     }
 
     /**
@@ -67,6 +79,9 @@ class QuestionController extends Controller
         $model = QuestionTypeFactory::create($type);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if ($type == 'material') {
+                return $this->redirect(['index', 'id' => $model->id]);
+            }
             return $this->redirect(['view', 'id' => $model->id, 'type' => $type]);
         } else {
             return $this->render('create', [

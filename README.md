@@ -14,6 +14,7 @@
 
 
 ## PHP初始化
+  * 以下命令皆在项目目录下执行, 自行安装环境。(windows 和 linux操作系统可能稍微有些区别，以下以linux为例)
 
   * 安装依赖
 
@@ -27,6 +28,11 @@
     
     ```
     CREATE DATABASE `kaoshi` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+    ```
+    修改配置文件(编辑自己的配置文件，配置数据库连接)：
+
+    ```
+    sudo vim common/config/main-local.php
     ```
 
     创建数据库表：
