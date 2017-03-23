@@ -2,29 +2,45 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use backend\assets\AppAsset;
 
 /* @var $this yii\web\View */
 /* @var $searchModel backend\models\QuestionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+AppAsset::register($this);
+AppAsset::addJs($this, Yii::$app->request->baseUrl."/js/short-long.js");
 
 $this->title = '材料题';
-$this->params['breadcrumbs'][] = $this->title;
+$this->params['breadcrumbs'] = [
+    ['label' => '题库管理', 'url' => ['question/index']],
+    $this->title
+];
 ?>
 <div class="question-index">
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p class="pull-right">
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> 选择题', ['create', 'type' => 'choice'], ['class' => 'btn btn-info btn-sm']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> 填空题', ['create', 'type' => 'fill'], ['class' => 'btn btn-info btn-sm']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> 问答题', ['create', 'type' => 'essay'], ['class' => 'btn btn-info btn-sm']) ?>
-        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> 判断题', ['create', 'type' => 'determine'], ['class' => 'btn btn-info btn-sm']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> 选择题', ['create', 'type' => 'choice', 'parentId' => $model->id], ['class' => 'btn btn-info btn-sm']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> 填空题', ['create', 'type' => 'fill', 'parentId' => $model->id], ['class' => 'btn btn-info btn-sm']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> 问答题', ['create', 'type' => 'essay', 'parentId' => $model->id], ['class' => 'btn btn-info btn-sm']) ?>
+        <?= Html::a('<span class="glyphicon glyphicon-plus"></span> 判断题', ['create', 'type' => 'determine', 'parentId' => $model->id], ['class' => 'btn btn-info btn-sm']) ?>
     </p>
     <h1><?= Html::encode($this->title) ?></h1>
 
+    <div class="shor-long">
+      <div class="well well-sm short-long-text">
+        <div class="short-text" style="display: block;">
+            <?= $model->getFilterStem() ?> 
+        <span class="trigger">(展开)</span></div>
+        <div class="long-text" style="display: none;"><p>
+            <?= $model->stem ?></p>
+        <span class="trigger">(收起)</span></div>
+      </div>
+    </div>
+
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
         'layout'=> '{items}<div class="text-right tooltip-demo">{pager}</div>',
         'pager'=>[
             'firstPageLabel'=>"首页",

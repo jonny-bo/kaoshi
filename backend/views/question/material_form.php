@@ -19,7 +19,7 @@ use dosamigos\ckeditor\CKEditor;
 
     <?= $form->field($model, 'difficulty')->radioList(['simple'=>'简单', 'normal'=>'一般', 'difficulty'=>'困难']) ?>
 
-    <?= $form->field($model, 'stem')->widget(CKEditor::className(), [
+    <?= $form->field($model, 'stem')->label('材料')->widget(CKEditor::className(), [
         'options' => ['rows' => 6],
         'preset' => 'basic'
     ]) ?>

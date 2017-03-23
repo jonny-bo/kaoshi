@@ -118,3 +118,11 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+.short-long-text .trigger {
+    visibility: hidden;
+    _visibility: visible;
+}
+
+.short-long-text .short-text {
+    cursor: pointer;
+}

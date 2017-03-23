@@ -7,6 +7,9 @@ use yii\helpers\Html;
 
 $this->title = '添加题目';
 $this->params['breadcrumbs'][] = ['label' => '题库管理', 'url' => ['index']];
+if ($parentId) {
+    $this->params['breadcrumbs'][] = ['label' => '材料题', 'url' => ['index', 'id' => $parentId]];
+}
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="question-create">
@@ -15,7 +18,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render($type.'_form', [
         'model' => $model,
-        'type'  => $type
+        'type'  => $type,
+        'parentId' => $parentId
     ]) ?>
 
 </div>

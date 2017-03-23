@@ -46,6 +46,7 @@ class QuestionSearch extends Question
     {
         $query = Question::find();
         $query->joinWith(['user']);
+        $query->where(['parentId' => 0]);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([

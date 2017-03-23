@@ -7,8 +7,10 @@ use yii\helpers\Html;
 
 $this->title = '更新 题目: ' . $model->id;
 $this->params['breadcrumbs'][] = ['label' => '题库管理', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+if ($model->parentId) {
+    $this->params['breadcrumbs'][] = ['label' => '材料题', 'url' => ['index', 'id' => $model->parentId]];
+}
+$this->params['breadcrumbs'][] = '更新';
 ?>
 <div class="question-update">
 
@@ -16,7 +18,8 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render($type.'_form', [
         'model' => $model,
-        'type'  => $type
+        'type'  => $type,
+        'parentId' => $model->parentId
     ]) ?>
 
 </div>

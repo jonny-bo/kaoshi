@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use backend\models\QuestionTypeFactory;
+use yii\data\ActiveDataProvider;
 
 /**
  * QuestionController implements the CRUD actions for Question model.
@@ -38,11 +39,12 @@ class QuestionController extends Controller
     {
         if ($id != 0) {
             $model = $this->findModel($id, 'material');
-            $searchModel = new QuestionSearch();
-            $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+            $className = QuestionTypeFactory::getClass($model->type);
+            $dataProvider = new ActiveDataProvider([
+                'query' => $className::find()->where(['parentId' => $id]),
+            ]);
 
             return $this->render('material_index', [
-                'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
                 'model' => $model
             ]);
@@ -64,7 +66,7 @@ class QuestionController extends Controller
      */
     public function actionView($id, $type)
     {
-        return $this->render($type.'_view', [
+        return $this->render('view', [
             'model' => $this->findModel($id, $type),
         ]);
     }
@@ -74,7 +76,7 @@ class QuestionController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($type)
+    public function actionCreate($type, $parentId = 0)
     {
         $model = QuestionTypeFactory::create($type);
 
@@ -86,7 +88,8 @@ class QuestionController extends Controller
         } else {
             return $this->render('create', [
                 'model' => $model,
-                'type'  => $type
+                'type'  => $type,
+                'parentId' => $parentId
             ]);
         }
     }

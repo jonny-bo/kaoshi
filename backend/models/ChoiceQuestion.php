@@ -22,7 +22,7 @@ class ChoiceQuestion extends Question
     public function rules()
     {
         return [
-            [['stem', 'choice', 'answeres'], 'required', 'message'=>'不能为空'],
+            [['stem', 'choice', 'answeres', 'difficulty'], 'required', 'message'=>'不能为空'],
             [['stem', 'analysis', 'metas'], 'string'],
             [['score'], 'number'],
             [['categoryId', 'parentId', 'subCount', 'finishedTimes', 'passedTimes', 'userId', 'updatedTime', 'createdTime', 'copyId'], 'integer'],

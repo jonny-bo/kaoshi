@@ -10,7 +10,7 @@ class DetermineQuestion extends Question
     public function rules()
     {
         return [
-            [['stem', 'answer'], 'required', 'message'=>'不能为空'],
+            [['stem', 'answer', 'difficulty'], 'required', 'message'=>'不能为空'],
             [['stem', 'analysis', 'metas'], 'string'],
             [['score'], 'number'],
             [['categoryId', 'parentId', 'subCount', 'finishedTimes', 'passedTimes', 'userId', 'updatedTime', 'createdTime', 'copyId'], 'integer'],
