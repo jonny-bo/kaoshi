@@ -118,11 +118,25 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
 .short-long-text .trigger {
-    visibility: hidden;
-    _visibility: visible;
+  visibility: hidden;
+  _visibility: visible;
+}
+
+.short-long-text .short-text:hover .trigger,
+.short-long-text .long-text:hover .trigger {
+  visibility: visible;
+  font-size: 12px;
+  color: #999;
 }
 
 .short-long-text .short-text {
-    cursor: pointer;
+  cursor: pointer;
 }
+
+.short-long-text .long-text {
+  cursor: pointer;
+  display: none;
+}
+

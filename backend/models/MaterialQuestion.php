@@ -19,4 +19,15 @@ class MaterialQuestion extends Question
             [['target'], 'string', 'max' => 255],
         ];
     }
+
+    public function findItems()
+    {
+        $items =  Question::find()->where(['parentId' => $this->id])->all();
+        foreach ($items as $key => $item) {
+            $className = QuestionTypeFactory::getClass($item->type);
+            $items[$key] = $className::findOne($item->id);
+        }
+
+        return $items;
+    }
 }

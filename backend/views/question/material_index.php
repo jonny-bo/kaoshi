@@ -31,7 +31,7 @@ $this->params['breadcrumbs'] = [
     <div class="shor-long">
       <div class="well well-sm short-long-text">
         <div class="short-text" style="display: block;">
-            <?= $model->getFilterStem() ?> 
+            <?= $model->getFilterStem(140) ?> 
         <span class="trigger">(展开)</span></div>
         <div class="long-text" style="display: none;"><p>
             <?= $model->stem ?></p>
