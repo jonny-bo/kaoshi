@@ -18,7 +18,7 @@
 
   * 安装依赖
 
-    ```
+    ```shell
     composer install
     ```
 
@@ -26,19 +26,34 @@
 
     创建数据库：
     
-    ```
+    ```shell
     CREATE DATABASE `kaoshi` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
     ```
     修改配置文件(编辑自己的配置文件，配置数据库连接)：
 
-    ```
+    ```shell
     sudo vim common/config/main-local.php
     ```
 
     创建数据库表：
 
-    ```
+    ```shell
     ./yii migrate
     ```
 
     程序会初始化表。
+
+## 系统演示
+
+体验考试管理系统, 请访问 [http://112.74.36.71:8002/](http://112.74.36.71:8002/):
+注册帐号, 请访问前台(其他功能后续开发) [http://112.74.36.71:8001/](http://112.74.36.71:8001/):
+
+一. 普通用户
+
+- **用户名:** `test` or `test@test.com`
+- **密码:** `test123`
+
+二. 管理员用户
+
+- **用户名:** `admin` or `admin@admin.com`
+- **密码:** `kaifazhe`
