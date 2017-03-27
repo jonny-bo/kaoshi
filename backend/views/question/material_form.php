@@ -34,8 +34,12 @@ use dosamigos\ckeditor\CKEditor;
     <?= $form->field($model, 'parentId')->hiddenInput(['value'=> 0])->label(false) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? '保存并添加子题' : '保存', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '保存并添加子题' : '保存', ['class' => 'btn btn-success']) ?>
+        <?php if (!$model->isNewRecord) : ?>
+            <?= Html::a('管理子题', ['index', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?php endif  ?>
     </div>
+
 
     <?php ActiveForm::end(); ?>
 
