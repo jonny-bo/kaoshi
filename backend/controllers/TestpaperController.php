@@ -93,6 +93,20 @@ class TestpaperController extends Controller
         }
     }
 
+    public function actionManage($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            \Yii::$app->getSession()->setFlash('success', '信息保存成功！');
+            return $this->redirect(['manage', 'id' => $model->id]);
+        } else {
+            return $this->render('manage', [
+                'model' => $model,
+            ]);
+        }
+    }
+
     /**
      * Deletes an existing Testpaper model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

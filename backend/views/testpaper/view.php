@@ -7,7 +7,7 @@ use yii\widgets\DetailView;
 /* @var $model backend\models\Testpaper */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Testpapers', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => '试卷预览', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="testpaper-view">

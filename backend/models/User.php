@@ -24,7 +24,7 @@ class User extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'user';
+        return 'admin';
     }
 
     /**
@@ -49,15 +49,15 @@ class User extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'username' => 'Username',
+            'id' => '编号',
+            'username' => '用户名',
             'auth_key' => 'Auth Key',
             'password_hash' => 'Password Hash',
             'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
-            'status' => 'Status',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'status' => '状态',
+            'created_at' => '注册时间',
+            'updated_at' => '最后登录',
         ];
     }
 }

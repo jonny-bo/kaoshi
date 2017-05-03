@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Testpaper */
 
-$this->title = '新建 试卷';
-$this->params['breadcrumbs'][] = ['label' => '试卷管理', 'url' => ['index']];
+$this->title = '新建 考试';
+$this->params['breadcrumbs'][] = ['label' => '考试管理', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="testpaper-create">

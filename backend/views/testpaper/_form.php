@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use dosamigos\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Testpaper */
@@ -14,36 +15,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'description')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'basic'
+    ]) ?>
 
-    <?= $form->field($model, 'limitedTime')->textInput() ?>
-
-    <?= $form->field($model, 'pattern')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'target')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'status')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'score')->textInput() ?>
-
-    <?= $form->field($model, 'passedScore')->textInput() ?>
-
-    <?= $form->field($model, 'itemCount')->textInput() ?>
-
-    <?= $form->field($model, 'createdUserId')->textInput() ?>
-
-    <?= $form->field($model, 'createdTime')->textInput() ?>
-
-    <?= $form->field($model, 'updatedUserId')->textInput() ?>
-
-    <?= $form->field($model, 'updatedTime')->textInput() ?>
-
-    <?= $form->field($model, 'metas')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'copyId')->textInput() ?>
+    <?= $form->field($model, 'limitedTime')->textInput(['maxlength' => true, 'style' => 'width:200px'])->label('限制时间:(分钟)') ?>
+    <div class="help-block">0分钟，表示无限制</div>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? '创建' : '保存', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
