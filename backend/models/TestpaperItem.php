@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use backend\models\Question;
 
 /**
  * This is the model class for table "testpaper_item".
@@ -53,5 +54,11 @@ class TestpaperItem extends \yii\db\ActiveRecord
             'score' => 'Score',
             'missScore' => 'Miss Score',
         ];
+    }
+
+    public function getQuestion()
+    {
+        $className = QuestionTypeFactory::getClass($this->questionType);
+        return $this->hasOne($className, ['id' => 'questionId']);
     }
 }

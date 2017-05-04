@@ -7,11 +7,11 @@ use yii\helpers\Html;
         <li class="list-group-item <?= $page == 'base' ? 'active' : '' ?>">
             <?= Html::a('基本信息', ['manage', 'id' => $model->id]) ?>
         </li>
-        <li class="list-group-item ">
-            <?= Html::a('题目设置', ['manage', 'id' => $model->id]) ?>
+        <li class="list-group-item <?= $page == 'question' ? 'active' : '' ?>">
+            <?= Html::a('题目设置', ['question', 'id' => $model->id]) ?>
         </li>
-        <li class="list-group-item ">
-            <?= Html::a('试卷设置', ['manage', 'id' => $model->id]) ?>
+        <li class="list-group-item <?= $page == 'examset' ? 'active' : '' ?>">
+            <?= Html::a('试卷设置', ['examset', 'id' => $model->id]) ?>
         </li>
         <li class="list-group-item ">
             <?= Html::a('成员信息', ['manage', 'id' => $model->id]) ?>

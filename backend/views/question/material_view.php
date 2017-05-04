@@ -1,8 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-
-$items = $model->findItems();
 ?>
 <div class="material">
     <div class="well testpaper-question-stem-material">
@@ -10,7 +8,7 @@ $items = $model->findItems();
     </div>    
 </div>
 
-<?php foreach ($items as $item) : ?>
+<?php foreach ($model->findItems() as $item) : ?>
     <div class="testpaper-question testpaper-question-choice">
         <?= $this->render($item->type.'_view', [
             'model' => $item

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use dosamigos\ckeditor\CKEditor;
+use backend\assets\AppAsset;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Testpaper */
@@ -17,27 +18,24 @@ $this->params['breadcrumbs'][] = '管理';
 <div class="col-md-3">
     <?= $this->render('left-menu.php', [
         'model' => $model,
-        'page'  => 'base'
+        'page'  => 'question'
     ]) ?>
 </div>
 <div class="col-md-9">
     <div class="panel panel-default panel-col">
-        <div class="panel-heading">基本信息</div>
+        <div class="panel-heading">题目设置</div>
         <div class="panel-body">
-            <?php $form = ActiveForm::begin(); ?>
-            
-            <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-
-            <?= $form->field($model, 'description')->widget(CKEditor::className(), [
-                'options' => ['rows' => 6],
-                'preset' => 'basic'
+            <ul class="nav nav-pills nav-mini">
+                <li class="<?= $type == 'rand' ? 'active' : '' ?>">
+                    <?= Html::a('题库随机', ['question', 'id' => $model->id, 'type' => 'rand'], ['class' => 'testpaper-nav-link']) ?>
+                </li>
+                <li class="<?= $type == 'select' ? 'active' : '' ?>">
+                    <?= Html::a('手动选择', ['question', 'id' => $model->id, 'type' => 'select'], ['class' => 'testpaper-nav-link']) ?>
+                </li>
+            </ul>
+            <?= $this->render("question/{$type}.php", [
+                'model' => $model,
             ]) ?>
-
-            <div class="form-group">
-                <?= Html::submitButton($model->isNewRecord ? '创建' : '保存', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-            </div>
-
-            <?php ActiveForm::end(); ?>
         </div>
     </div>
 </div>

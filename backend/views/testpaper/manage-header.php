@@ -15,22 +15,22 @@ $this->title = '管理 考试: ' . $model->name;
     </div>
     <div class="toolbar hidden-xs">
         <div class="btn-group">
-            <?php if ($model->status == 'close' || $model->status = 'draft') : ?>
-                <?= Html::a('发布', ['open', 'id' => $model->id], [
-                    'class' => 'btn btn-info btn-sm',
-                    'data' => [
-                        'confirm' => '你确定要发布这个考试？发布后将在前台被显示！',
-                        'method' => 'post',
-                    ],
-                ]) ?>
-            <?php else : ?>
+            <?php if ($model->status == 'open') : ?>
                 <?= Html::a('关闭', ['close', 'id' => $model->id], [
                     'class' => 'btn btn-danger btn-sm',
                     'data' => [
                         'confirm' => '你确定要关闭这个考试？关闭后将在前台不被显示！',
                         'method' => 'post',
                     ],
-                ]) ?>                
+                ]) ?> 
+            <?php else : ?>
+                <?= Html::a('发布', ['open', 'id' => $model->id], [
+                    'class' => 'btn btn-info btn-sm',
+                    'data' => [
+                        'confirm' => '你确定要发布这个考试？发布后将在前台被显示！',
+                        'method' => 'post',
+                    ],
+                ]) ?>               
             <?php endif ?>
         </div>
     

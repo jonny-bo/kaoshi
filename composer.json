@@ -19,10 +19,7 @@
         "yiisoft/yii2-bootstrap": "~2.0.0",
         "yiisoft/yii2-swiftmailer": "~2.0.0",
         "2amigos/yii2-ckeditor-widget": "*",
-        "dektrium/yii2-user": "0.9.*@dev",
-        "loveorigami/yii2-notification-wrapper": "*",
-        "bower-asset/noty": "^2.3",
-        "bower-asset/jquery-growl": "^1.3"
+        "dektrium/yii2-user": "0.9.*@dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

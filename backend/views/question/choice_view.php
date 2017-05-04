@@ -6,9 +6,9 @@ use yii\helpers\Html;
 <div class="testpaper-question-body">
     <div class="testpaper-question-stem-wrap clearfix">
         <div class="testpaper-question-seq-wrap">
-            <div class="testpaper-question-seq"></div>
+            <div class="testpaper-question-seq"><?= isset($seq) ? $seq : ''  ?></div>
             <div class="testpaper-question-score">
-                <?= Html::encode($model->score) ?> 分
+                <?= Html::encode(isset($score) ? $score : $model->score) ?> 分
             </div>
         </div>
         <div class="testpaper-question-stem">
@@ -52,7 +52,7 @@ use yii\helpers\Html;
     <div class="testpaper-question-actions pull-right">
     </div>
 </div>
-<div class="testpaper-preview-answer clearfix mtl mbl">
+<div class="testpaper-preview-answer clearfix mtl mbl <?= isset($type) ? 'hidden' : ''  ?>">
     <div class="testpaper-question-result">
         正确答案是 
         <?php foreach ($model->answer as $index) : ?>
@@ -62,7 +62,7 @@ use yii\helpers\Html;
         <?php endforeach ?>
     </div>
 </div>
-<div class="testpaper-question-analysis well">
+<div class="testpaper-question-analysis well <?= isset($type) ? 'hidden' : ''  ?>">
     <?php if (!$model->analysis) : ?>
         无解析
     <?php endif ?>

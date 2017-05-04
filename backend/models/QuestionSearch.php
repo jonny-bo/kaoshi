@@ -87,7 +87,7 @@ class QuestionSearch extends Question
             ->andFilterWhere(['like', 'metas', $this->metas])
             ->andFilterWhere(['like', 'difficulty', $this->difficulty])
             ->andFilterWhere(['like', 'target', $this->target])
-            ->andFilterWhere(['like', 'user.username', $this->username]);
+            ->andFilterWhere(['like', 'admin.username', $this->username]);
 
         return $dataProvider;
     }

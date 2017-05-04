@@ -27,4 +27,28 @@ class Helper
         }
         return $result;
     }
+
+    public static function getDict($name, $value = '')
+    {
+        $dicts = array(
+            'questionType' => array(
+                'choice' => '选择题',
+                'fill' => '填空题',
+                'essay' => '问答题',
+                'determine' => '判断题',
+                'material' => '材料题',
+            ),
+            'difficulty' => array(
+                'simple' => '简单',
+                'normal' => '普通',
+                'difficulty' => '困难',
+            )
+        );
+
+        if ($value == '') {
+            return $dicts[$name];
+        }
+
+        return $dicts[$name][$value];
+    }
 }

@@ -3,6 +3,8 @@
 namespace backend\models;
 
 use Yii;
+use backend\models\TestpaperItem;
+use backend\models\Question;
 
 /**
  * This is the model class for table "testpaper".
@@ -106,5 +108,54 @@ class Testpaper extends \yii\db\ActiveRecord
         }
 
         return '未知';
+    }
+
+    public function getQuestionCount($type)
+    {
+        $count = Question::find()->andWhere(['type' => $type, 'parentId' => 0])->count();
+
+        return $count;
+    }
+
+    public function getQuestions($type)
+    {
+        $questions = Question::find()->andWhere(['type' => $type, 'parentId' => 0])->all();
+
+        return $questions;
+    }
+
+    public function getItems($type = '')
+    {
+        if ($type == '') {
+            $items = TestpaperItem::find()->andWhere(['testId' => $this->id])->all();
+        } else {
+            $items = TestpaperItem::find()->andWhere(['testId' => $this->id, 'questionType' => $type])->all();
+        }
+        
+        return $items;
+    }
+
+    public function getItemCount($type = '')
+    {
+        if ($type == '') {
+            $count = TestpaperItem::find()->andWhere(['testId' => $this->id])->count();
+        } else {
+            $count = TestpaperItem::find()->andWhere(['questionType' => $type, 'testId' => $this->id])->count();
+        }
+        
+        if (empty($count)) {
+            return 0;
+        }
+        return $count;
+    }
+
+    public function getMissScore()
+    {
+        $item = TestpaperItem::find()->andWhere(['questionType' => 'choice', 'testId' => $this->id])->one();
+
+        if (empty($item)) {
+            return 0;
+        }
+        return $item->missScore;
     }
 }
