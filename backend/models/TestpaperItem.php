@@ -61,4 +61,11 @@ class TestpaperItem extends \yii\db\ActiveRecord
         $className = QuestionTypeFactory::getClass($this->questionType);
         return $this->hasOne($className, ['id' => 'questionId']);
     }
+
+    public function getAnwser($userId)
+    {
+        $answer = TestpaperItemResult::find()->where(['userId' => $userId, 'testId' => $this->testId, 'itemId' => $this->seq])->one();
+
+        return json_decode($answer->answer, true);
+    }
 }

@@ -18,15 +18,16 @@ use yii\helpers\Html;
 <div class="testpaper-question-footer clearfix">
     <div class="testpaper-question-determine-inputs">                      
         <label class="radio-inline ">
-            <input type="radio" data-type="determine" name="6" value="0">正确
+            <input type="radio" data-type="determine" name="<?= isset($seq) ? $seq : ''  ?>" value="0">正确
         </label>
         <label class="radio-inline ">
-            <input type="radio" data-type="determine" name="6" value="1">错误
+            <input type="radio" data-type="determine" name="<?= isset($seq) ? $seq : ''  ?>" value="1">错误
         </label>
     </div>
     <div class="testpaper-question-actions pull-right">
     </div>
 </div>
+<?php if (!isset($type)) : ?>
 <div class="testpaper-preview-answer clearfix mtl mbl <?= isset($type) ? 'hidden' : ''  ?>">
     <div class="testpaper-question-result">
         正确答案是 
@@ -42,3 +43,4 @@ use yii\helpers\Html;
 
     <?= $model->analysis ?>
 </div>
+<?php endif; ?>

@@ -38,18 +38,6 @@ use yii\widgets\ActiveForm;
             <button type="button" class="btn btn-link testpaper-question-option-item-sort-handler">
                 <span class="glyphicon glyphicon-move"></span>
             </button>
-            <span style="min-width:85px;display:inline-block;_display:inline;">问答题</span>
-            <span class="mlm">题目数量:</span>
-            <input type="text" class="form-control width-input width-input-mini input-sm item-number" name="counts[essay]" value="<?= Html::encode($model->getItemCount('essay')) ?>">/
-            <span class="text-info question-num" role="questionNum" type="essay"><?= Html::encode($model->getQuestionCount('essay')) ?></span>
-
-            <span class="mlm">题目分值:</span>
-            <input type="text" class="form-control width-input width-input-mini input-sm item-score" name="scores[essay]" value="2">
-    </div>
-    <div class="testpaper-question-option-item">
-            <button type="button" class="btn btn-link testpaper-question-option-item-sort-handler">
-                <span class="glyphicon glyphicon-move"></span>
-            </button>
             <span style="min-width:85px;display:inline-block;_display:inline;">判断题</span>
             <span class="mlm">题目数量:</span>
             <input type="text" class="form-control width-input width-input-mini input-sm item-number" name="counts[determine]" value="<?= Html::encode($model->getItemCount('determine')) ?>">/
@@ -57,6 +45,18 @@ use yii\widgets\ActiveForm;
 
             <span class="mlm">题目分值:</span>
             <input type="text" class="form-control width-input width-input-mini input-sm item-score" name="scores[determine]" value="2">
+    </div>
+    <div class="testpaper-question-option-item">
+            <button type="button" class="btn btn-link testpaper-question-option-item-sort-handler">
+                <span class="glyphicon glyphicon-move"></span>
+            </button>
+            <span style="min-width:85px;display:inline-block;_display:inline;">问答题</span>
+            <span class="mlm">题目数量:</span>
+            <input type="text" class="form-control width-input width-input-mini input-sm item-number" name="counts[essay]" value="<?= Html::encode($model->getItemCount('essay')) ?>">/
+            <span class="text-info question-num" role="questionNum" type="essay"><?= Html::encode($model->getQuestionCount('essay')) ?></span>
+
+            <span class="mlm">题目分值:</span>
+            <input type="text" class="form-control width-input width-input-mini input-sm item-score" name="scores[essay]" value="2">
     </div>
     <div class="testpaper-question-option-item">
             <button type="button" class="btn btn-link testpaper-question-option-item-sort-handler">

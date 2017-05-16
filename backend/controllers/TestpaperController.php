@@ -8,6 +8,9 @@ use backend\models\TestpaperSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use common\models\User;
+use backend\models\TestpaperItemResult;
+use backend\models\TestpaperResult;
 use backend\models\Question;
 use backend\models\TestpaperItem;
 
@@ -68,7 +71,7 @@ class TestpaperController extends Controller
         $model = new Testpaper();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['manage', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -162,6 +165,57 @@ class TestpaperController extends Controller
         }
     }
 
+    public function actionUser($id)
+    {
+        $model = $this->findModel($id);
+
+        $itemResults = TestpaperResult::find()->where(['testId' => $id])->all();
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            \Yii::$app->getSession()->setFlash('success', '信息保存成功！');
+            return $this->redirect(['user', 'id' => $model->id]);
+        } else {
+            return $this->render('user', [
+                'model' => $model,
+                'itemResults' => $itemResults
+            ]);
+        }
+    }
+
+    public function actionReview($id, $userId)
+    {
+        $result = TestpaperResult::find()->where(['testId' => $id, 'userId' => $userId])->one();
+        $testpaper = $this->findModel($id);
+
+        if (Yii::$app->request->getIsPost()) {
+            $reviews = Yii::$app->request->post('review');
+
+            $items = TestpaperItemResult::find()->where(['testId' => $id, 'userId' => $userId])->all();
+
+            foreach ($items as $item) {
+                $item->score = $reviews[$item->itemId];
+                $item->save();
+            }
+
+            $result->score = array_sum(array_values($reviews));
+            $result->checkTeacherId = Yii::$app->user->id;
+            $result->checkedTime = time();
+            if ($testpaper->passedScore <= $result->score) {
+                 $result->passedStatus = 'passed';
+            }
+            $result->save();
+
+            \Yii::$app->getSession()->setFlash('success', '批阅成功！');
+
+            return $this->redirect(['user', 'id' => $id]);
+        }
+
+        return $this->render('review', [
+            'model' => $this->findModel($id),
+            'userId' => $userId
+        ]);
+    }
+
     public function actionQuestion($id, $type = 'rand')
     {
         $model = $this->findModel($id);
@@ -174,7 +228,7 @@ class TestpaperController extends Controller
                 }
                 $counts = Yii::$app->request->post('counts');
                 $scores = Yii::$app->request->post('scores');
-                $seq = 0;
+                $seq = 1;
                 foreach ($counts as $key => $value) {
                     if ($model->getQuestionCount($key) < $value) {
                         \Yii::$app->getSession()->setFlash('danger', '题库数量不足！');
@@ -194,7 +248,7 @@ class TestpaperController extends Controller
                     foreach ($rand_keys as $randKey) {
                         $item = new TestpaperItem();
                         $item->testId = $id;
-                        $item->seq = $seq+1;
+                        $item->seq = $seq;
                         $item->questionId = $questions[$randKey]->id;
                         $item->questionType = $key;
                         $item->parentId = $questions[$randKey]->parentId;
@@ -204,8 +258,28 @@ class TestpaperController extends Controller
                         } else {
                             $item->missScore = 0;
                         }
-                        
+
                         $item->save();
+
+                        if ($key == 'material') {
+                            $childs = Question::find()->where(['parentId' => $questions[$randKey]->id])->all();
+                            foreach ($childs as $child) {
+                                $item = new TestpaperItem();
+                                $item->testId = $id;
+                                $item->seq = $seq;
+                                $item->questionId = $child->id;
+                                $item->questionType = $child->type;
+                                $item->parentId = $child->parentId;
+                                $item->score = $scores[$child->type];
+                                if ($child->type == 'choice') {
+                                    $item->missScore = $scores['missScores'];
+                                } else {
+                                    $item->missScore = 0;
+                                }
+                                 $item->save();
+                                 $seq ++;
+                            }
+                        }
                         $seq ++;
                     }
                 }

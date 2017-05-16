@@ -81,4 +81,9 @@ class ChoiceQuestion extends Question
         $this->choice = Json::decode($this->metas);
         $this->answer = Json::decode($this->answer);
     }
+
+    // public function checkAnswer()
+    // {
+        
+    // }
 }

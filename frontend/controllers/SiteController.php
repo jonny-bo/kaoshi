@@ -12,6 +12,11 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use backend\models\Testpaper;
+use backend\models\TestpaperItemResult;
+use backend\models\TestpaperResult;
+use backend\models\Question;
+use backend\models\TestpaperItem;
 
 /**
  * Site controller
@@ -65,6 +70,15 @@ class SiteController extends Controller
         ];
     }
 
+    public function beforeAction($action)
+    {
+        //如果未登录，则直接返回
+        if (Yii::$app->user->isGuest){
+            return $this->redirect(['/user/security/login']);
+        }
+        return true;
+    }
+
     /**
      * Displays homepage.
      *
@@ -72,7 +86,63 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $testPaperes = Testpaper::find()->where(['status' => 'open'])->all();
+
+        return $this->render('index', [
+            'testPaperes' => $testPaperes
+        ]);
+    }
+
+    public function actionExam($id)
+    {
+        $this->enableCsrfValidation = false;
+        $testpaper =  Testpaper::findOne($id);
+
+        $testpaperResult = TestpaperResult::find()->where(['userId' => Yii::$app->user->id, 'testId' => $id])->one();
+
+        if ($testpaperResult) {
+            return $this->render('message', [
+                'testpaper' => $testpaper,
+                'itemResult' => $testpaperResult
+            ]);
+        }
+        $beginTime = time();
+
+        if (Yii::$app->request->getIsPost()) {
+            $anwers = Yii::$app->request->post();
+            $beginTime = $anwers['beginTime'];
+            unset($anwers['_csrf-frontend']);
+            unset($anwers['beginTime']);
+
+            $testpaperResult = new TestpaperResult();
+            $testpaperResult->paperName = $testpaper->name;
+            $testpaperResult->testId = $id;
+            $testpaperResult->userId = Yii::$app->user->id;
+            $testpaperResult->target = 'exam';
+            $testpaperResult->beginTime = $beginTime;
+            $testpaperResult->endTime = time();
+            $testpaperResult->save();
+
+            foreach ($anwers as $key => $value) {
+                $question = TestpaperItem::find()->where(['seq' => $key, 'testId' => $id])->one();
+                $itemResult = new TestpaperItemResult();
+                $itemResult->testId = $id;
+                $itemResult->itemId = $key;
+                $itemResult->testPaperResultId = $testpaperResult->id;
+                $itemResult->userId = Yii::$app->user->id;
+                $itemResult->questionId = $question->id;
+                $itemResult->answer = json_encode($value);
+                $itemResult->save();
+            }
+
+            Yii::$app->session->setFlash('success', '试卷提交成功，请耐心等待结果！');
+            return $this->goHome();
+        }
+
+        return $this->render('exam', [
+            'testpaper' => $testpaper,
+            'beginTime' => $beginTime
+        ]);
     }
 
     /**

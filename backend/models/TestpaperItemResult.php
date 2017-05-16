@@ -60,4 +60,11 @@ class TestpaperItemResult extends \yii\db\ActiveRecord
             'pId' => 'P ID',
         ];
     }
+
+    public function getQuestion()
+    {
+        $question = Question::findOne($this->questionId);
+        $className = QuestionTypeFactory::getClass($$question->type);
+        return $this->hasOne($className, ['id' => 'questionId']);
+    }
 }

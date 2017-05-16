@@ -55,4 +55,15 @@ class SignupForm extends Model
         
         return $user->save() ? $user : null;
     }
+
+    public function updatePass($id)
+    {
+        $user = User::findOne($id);
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        
+        return $user->save() ? $user : null;
+    }
 }

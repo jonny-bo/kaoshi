@@ -37,22 +37,23 @@ use yii\helpers\Html;
 <div class="testpaper-question-footer clearfix">
     <div class="testpaper-question-choice-inputs">                      
         <label class="radio-inline ">
-            <input type="radio" data-type="choice" name="6" value="0">A
+            <input type="radio" data-type="choice" name="<?= isset($seq) ? $seq : ''  ?>" value="1">A
         </label>
         <label class="radio-inline ">
-            <input type="radio" data-type="choice" name="6" value="1">B
+            <input type="radio" data-type="choice" name="<?= isset($seq) ? $seq : ''  ?>" value="2">B
         </label>
         <label class="radio-inline ">
-            <input type="radio" data-type="choice" name="6" value="2">C
+            <input type="radio" data-type="choice" name="<?= isset($seq) ? $seq : ''  ?>" value="3">C
         </label>
         <label class="radio-inline ">
-            <input type="radio" data-type="choice" name="6" value="3">D
+            <input type="radio" data-type="choice" name="<?= isset($seq) ? $seq : ''  ?>" value="4">D
         </label>
     </div>
     <div class="testpaper-question-actions pull-right">
     </div>
 </div>
-<div class="testpaper-preview-answer clearfix mtl mbl <?= isset($type) ? 'hidden' : ''  ?>">
+<?php if (!isset($type)) : ?>
+<div class="testpaper-preview-answer clearfix mtl mbl">
     <div class="testpaper-question-result">
         正确答案是 
         <?php foreach ($model->answer as $index) : ?>
@@ -62,10 +63,11 @@ use yii\helpers\Html;
         <?php endforeach ?>
     </div>
 </div>
-<div class="testpaper-question-analysis well <?= isset($type) ? 'hidden' : ''  ?>">
+<div class="testpaper-question-analysis well">
     <?php if (!$model->analysis) : ?>
         无解析
     <?php endif ?>
 
     <?= $model->analysis ?>
 </div>
+<?php endif; ?>

@@ -10,7 +10,7 @@ AppAsset::addCss($this, Yii::$app->request->baseUrl."/css/question.css");
 $type = 'exam';
 
 if (!isset($label)) {
-    $label = '试卷预览';
+    $label = '试卷批阅';
 }
 /* @var $this yii\web\View */
 /* @var $model backend\models\Testpaper */
@@ -64,8 +64,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $item->question,
                         'seq'   => $item->seq,
                         'score' => $item->score,
-                        'type'  => $type
                     ]) ?>
+                  <div class="testpaper-preview-answer clearfix mtl mbl">
+                      <div class="testpaper-question-result">
+                          考生选择的答案是 
+                            <strong class="text-success">
+                                <?= Html::encode($item->question->values[$item->getAnwser($userId)]) ?>
+                            </strong>
+                      </div>
+                      <br>
+                      评分：　<input type="text" name="review[<?=$item->seq?>]" width="50px;">
+                  </div>
                   </div>
                 <?php endforeach; ?>
               </div>
@@ -85,8 +94,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $item->question,
                         'seq'   => $item->seq,
                         'score' => $item->score,
-                        'type'  => $type
                     ]) ?>
+                  </div>
+                  <div class="testpaper-preview-answer clearfix mtl mbl">
+                      <div class="testpaper-question-result">
+                            <?php foreach ($item->question->answer as $key => $answer) : ?>
+                                考生填的第<?=$key+1?>空答案： <?=$item->getAnwser($userId)[$key+1]?>
+                            <?php endforeach ?> 
+                      </div>
+                      <br>
+                    评分：　<input type="text" name="review[<?=$item->seq?>]" width="50px;">
                   </div>
                 <?php endforeach; ?>
               </div>
@@ -106,9 +123,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $item->question,
                         'seq'   => $item->seq,
                         'score' => $item->score,
-                        'type'  => $type
                     ]) ?>
                   </div>
+                  <div class="testpaper-question-result">
+                      考生选择的答案是 
+                      <strong class="text">
+                        <?= $item->getAnwser($userId) == 1 ? '正确' : '错误' ?>
+                      </strong>
+                  </div>
+                  <br>
+                    评分：　<input type="text" name="review[<?=$item->seq?>]" width="50px;">
                 <?php endforeach; ?>
               </div>
           </div>
@@ -127,8 +151,13 @@ $this->params['breadcrumbs'][] = $this->title;
                         'model' => $item->question,
                         'seq'   => $item->seq,
                         'score' => $item->score,
-                        'type'  => $type
-                    ]) ?> 
+                    ]) ?>
+                    <div class="testpaper-question-result">
+                        考生的答案是:
+                        <?= $item->getAnwser($userId) ?>
+                    </div>
+                    <br>
+                    评分：　<input type="text" name="review[<?=$item->seq?>]" width="50px;">
                   </div>
                 <?php endforeach; ?>
               </div>
@@ -156,10 +185,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'model' => $one,
                                 'seq'   => $item->seq++,
                                 'score' => $item->score,
-                                'type'  => $type
                             ]) ?>    
                         </div>
                     <?php endforeach ?>
+                    评分：　<input type="text" name="review[<?=$item->seq?>]" width="50px;">
                   </div>
                 <?php endforeach; ?>
               </div>
@@ -172,12 +201,6 @@ $this->params['breadcrumbs'][] = $this->title;
   <div class="col-md-3">
       <div class="testpaper-card affix-top" data-spy="affix" data-offset-top="200" data-offset-bottom="200">
         <div class="panel panel-default">
-          <div class="panel-heading">
-              <strong>到计时: </strong>&nbsp
-              <span class="preview testpaper-card-timer" id="time_show" data-time="6000">100:00</span>
-<!--               <button class="btn btn-sm btn-default pull-right">稍后再做</button>
-              <button id="pause" class="btn btn-sm btn-default pull-right">暂停</button> -->
-          </div>
           <div class="panel-body">
             <?php for ($i = 1; $i <= $model->getItemCount(); $i++) : ?> 
               <a href="javascript:;" data-anchor="#question6" class="btn btn-default btn-index pull-left "><?=$i?></a>
@@ -185,7 +208,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="clearfix mtm mbm"></div> 
           </div>
           <div class="panel-footer">
-              <button class="btn btn-success btn-block" type="submit" form="userExamForm">我要交卷</button>
+              <button class="btn btn-success btn-block" type="submit" form="userExamForm">提交批阅</button>
           </div>
         </div>
       </div>

@@ -18,12 +18,13 @@ use yii\helpers\Html;
 <div class="testpaper-question-footer clearfix">
     <div class="testpaper-question-fill-inputs">
         <?php foreach ($model->answer as $key => $answer) : ?>
-            <input class="form-control " type="text" data-type="fill" name="7" placeholder="填空(<?= $key+1 ?>)答案，请填在这里">
+            <input class="form-control " type="text" data-type="fill" name="<?= isset($seq) ? $seq : ''  ?>[<?=$key+1?>]" placeholder="填空(<?= $key+1 ?>)答案，请填在这里">
         <?php endforeach ?>    
     </div>
     <div class="testpaper-question-actions pull-right">
     </div>
 </div>
+<?php if (!isset($type)) : ?>
 <div class="testpaper-preview-answer clearfix mtl mbl <?= isset($type) ? 'hidden' : ''  ?>">
     <div class="testpaper-question-result">
         <?php foreach ($model->answer as $key => $answer) : ?>
@@ -42,3 +43,4 @@ use yii\helpers\Html;
 
     <?= $model->analysis ?>
 </div>
+<?php endif; ?>

@@ -17,11 +17,12 @@ use yii\helpers\Html;
 </div>
 <div class="testpaper-question-footer clearfix">
     <div class="testpaper-question-essay-inputs">
-        <input class="form-control " type="text" data-type="essay" name="7" placeholder="请填写答案"> 
+        <input class="form-control " type="text" data-type="essay" name="<?= isset($seq) ? $seq : ''  ?>" placeholder="请填写答案"> 
     </div>
     <div class="testpaper-question-actions pull-right">
     </div>
 </div>
+<?php if (!isset($type)) : ?>
 <div class="testpaper-preview-answer clearfix mtl mbl <?= isset($type) ? 'hidden' : ''  ?>">
     <div class="testpaper-question-result">
         参考答案：
@@ -35,3 +36,4 @@ use yii\helpers\Html;
 
     <?= $model->analysis ?>
 </div>
+<?php endif; ?>

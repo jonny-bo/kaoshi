@@ -78,7 +78,7 @@ class Testpaper extends \yii\db\ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['id' => 'createdUserId']);
+        return $this->hasOne(Admin::className(), ['id' => 'createdUserId']);
     }
 
     public function beforeSave($insert)
@@ -127,9 +127,9 @@ class Testpaper extends \yii\db\ActiveRecord
     public function getItems($type = '')
     {
         if ($type == '') {
-            $items = TestpaperItem::find()->andWhere(['testId' => $this->id])->all();
+            $items = TestpaperItem::find()->andWhere(['testId' => $this->id, 'parentId' => '0'])->all();
         } else {
-            $items = TestpaperItem::find()->andWhere(['testId' => $this->id, 'questionType' => $type])->all();
+            $items = TestpaperItem::find()->andWhere(['testId' => $this->id, 'questionType' => $type, 'parentId' => '0'])->all();
         }
         
         return $items;
@@ -138,9 +138,9 @@ class Testpaper extends \yii\db\ActiveRecord
     public function getItemCount($type = '')
     {
         if ($type == '') {
-            $count = TestpaperItem::find()->andWhere(['testId' => $this->id])->count();
+            $count = TestpaperItem::find()->andWhere(['testId' => $this->id, 'parentId' => '0'])->count();
         } else {
-            $count = TestpaperItem::find()->andWhere(['questionType' => $type, 'testId' => $this->id])->count();
+            $count = TestpaperItem::find()->andWhere(['questionType' => $type, 'testId' => $this->id, 'parentId' => '0'])->count();
         }
         
         if (empty($count)) {

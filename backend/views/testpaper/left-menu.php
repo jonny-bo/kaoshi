@@ -13,17 +13,8 @@ use yii\helpers\Html;
         <li class="list-group-item <?= $page == 'examset' ? 'active' : '' ?>">
             <?= Html::a('试卷设置', ['examset', 'id' => $model->id]) ?>
         </li>
-        <li class="list-group-item ">
-            <?= Html::a('成员信息', ['manage', 'id' => $model->id]) ?>
-        </li>
-    </ul>
-    <ul class="list-group">
-        <li class="list-group-heading">考试结果</li>
-        <li class="list-group-item ">
-            <?= Html::a('试卷批阅', ['manage', 'id' => $model->id]) ?>
-        </li>
-        <li class="list-group-item ">
-            <?= Html::a('分数统计', ['manage', 'id' => $model->id]) ?>
+        <li class="list-group-item <?= $page == 'user' ? 'active' : '' ?>">
+            <?= Html::a('批阅试卷', ['user', 'id' => $model->id]) ?>
         </li>
     </ul>
 </div>

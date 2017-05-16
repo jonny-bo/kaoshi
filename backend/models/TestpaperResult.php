@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use Yii;
+use frontend\models\User;
 
 /**
  * This is the model class for table "testpaper_result".
@@ -47,7 +48,6 @@ class TestpaperResult extends \yii\db\ActiveRecord
             [['testId', 'userId', 'rightItemCount', 'limitedTime', 'beginTime', 'endTime', 'updateTime', 'active', 'checkTeacherId', 'checkedTime', 'usedTime'], 'integer'],
             [['score', 'objectiveScore', 'subjectiveScore'], 'number'],
             [['teacherSay', 'passedStatus', 'status'], 'string'],
-            [['status'], 'required'],
             [['paperName', 'target'], 'string', 'max' => 255],
         ];
     }
@@ -79,5 +79,10 @@ class TestpaperResult extends \yii\db\ActiveRecord
             'checkedTime' => 'Checked Time',
             'usedTime' => 'Used Time',
         ];
+    }
+
+    public function getUser()
+    {
+        return User::findOne($this->userId);
     }
 }
