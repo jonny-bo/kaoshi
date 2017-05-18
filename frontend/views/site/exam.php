@@ -9,6 +9,7 @@ use backend\assets\AppAsset;
 AppAsset::register($this);
 AppAsset::addCss($this, "css/question.css");
 AppAsset::addCss($this, "css/site.css");
+AppAsset::addJs($this, "js/site.js");
 $type = 'exam';
 
 $this->title = $testpaper->name;

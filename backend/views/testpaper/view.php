@@ -7,6 +7,7 @@ use yii\widgets\ActiveForm;
 
 AppAsset::register($this);
 AppAsset::addCss($this, Yii::$app->request->baseUrl."/css/question.css");
+AppAsset::addJs($this, Yii::$app->request->baseUrl."/js/site.js");
 $type = 'exam';
 
 if (!isset($label)) {
@@ -174,8 +175,8 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="panel panel-default">
           <div class="panel-heading">
               <strong>到计时: </strong>&nbsp
-              <span class="preview testpaper-card-timer" id="time_show" data-time="6000">100:00</span>
-<!--               <button class="btn btn-sm btn-default pull-right">稍后再做</button>
+              <span class="preview testpaper-card-timer" id="time_show" data-time="<?=$model->limitedTime?>"><?= $model->limitedTime?></span>分钟
+              <!--　<button class="btn btn-sm btn-default pull-right">稍后再做</button>
               <button id="pause" class="btn btn-sm btn-default pull-right">暂停</button> -->
           </div>
           <div class="panel-body">
