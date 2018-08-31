@@ -38,11 +38,11 @@ AppAsset::register($this);
         ['label' => '首页', 'url' => ['/site/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => '注册', 'url' => ['/user/registration/register']];
-        $menuItems[] = ['label' => '登录', 'url' => ['/user/security/login']];
+        $menuItems[] = ['label' => '注册', 'url' => ['site/signup']];
+        $menuItems[] = ['label' => '登录', 'url' => ['site/login']];
     } else {
         $menuItems[] = '<li>'
-            . Html::beginForm(['/user/security/logout'], 'post')
+            . Html::beginForm(['site/logout'], 'post')
             . Html::submitButton(
                 '登出 (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']

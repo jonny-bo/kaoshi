@@ -72,10 +72,10 @@ class SiteController extends Controller
 
     public function beforeAction($action)
     {
-        //如果未登录，则直接返回
-        if (Yii::$app->user->isGuest){
-            return $this->redirect(['/user/security/login']);
-        }
+        // //如果未登录，则直接返回
+        // if (Yii::$app->user->isGuest){
+        //     return $this->redirect(['site/login']);
+        // }
         return true;
     }
 

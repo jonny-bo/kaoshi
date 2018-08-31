@@ -78,7 +78,7 @@ class Testpaper extends \yii\db\ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(Admin::className(), ['id' => 'createdUserId']);
+        return $this->hasOne(User::className(), ['id' => 'createdUserId']);
     }
 
     public function beforeSave($insert)

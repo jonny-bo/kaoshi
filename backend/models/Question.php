@@ -3,7 +3,7 @@
 namespace backend\models;
 
 use Yii;
-use backend\models\Admin;
+use backend\models\User;
 use common\components\Helper;
 
 /**
@@ -92,7 +92,7 @@ class Question extends \yii\db\ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(Admin::className(), ['id' => 'userId']);
+        return $this->hasOne(User::className(), ['id' => 'userId']);
     }
 
     public function beforeSave($insert)

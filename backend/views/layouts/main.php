@@ -36,7 +36,7 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => '首页', 'url' => ['/site/index']],
-        ['label' => '用户管理', 'url' => ['/user/admin/index']],
+        ['label' => '用户管理', 'url' => ['/user/index']],
         ['label' => '题库管理', 'url' => ['/question/index']],
         ['label' => '考试管理', 'url' => ['/testpaper/index']]
     ];

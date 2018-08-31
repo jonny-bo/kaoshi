@@ -193,7 +193,7 @@ class TestpaperController extends Controller
             $items = TestpaperItemResult::find()->where(['testId' => $id, 'userId' => $userId])->all();
 
             foreach ($items as $item) {
-                $item->score = $reviews[$item->itemId];
+                $item->score = $reviews[$item->itemId] ?? 0;
                 $item->save();
             }
 

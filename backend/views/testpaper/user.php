@@ -38,15 +38,15 @@ $this->params['breadcrumbs'][] = '管理';
               <tbody>
                 <?php foreach ($itemResults as $itemResult) : ?>
                 <tr>
-                  <td><?=$itemResult->user->username?></td>
-                  <td><?=$itemResult->user->email?></td>
+                  <td><?=$itemResult->getUser()->username?></td>
+                  <td><?=$itemResult->getUser()->email?></td>
                   <td><?=$itemResult->paperName?></td>
                   <td><?=date('Y-m-d H:i:s', $itemResult->beginTime)?></td>
                   <td>
                     <?php if ($itemResult->score) : ?>
                         <?=$itemResult->score?>
                     <?php else : ?>
-                      '未批阅'
+                      未批阅
                     <?php endif; ?>  
                   </td>
                   <td>
